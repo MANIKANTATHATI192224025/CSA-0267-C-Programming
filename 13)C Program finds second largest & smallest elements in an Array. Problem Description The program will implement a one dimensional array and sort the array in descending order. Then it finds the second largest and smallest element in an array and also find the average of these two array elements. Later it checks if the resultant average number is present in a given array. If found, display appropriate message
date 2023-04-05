@@ -1,0 +1,58 @@
+#include <stdio.h>
+
+int main() {
+    int arr[10] = {12, 23, 4, 67, 34, 21, 56, 78, 90, 8};
+    int n = 10, temp;
+    float sum = 0, avg;
+    int largest = arr[0], secondLargest = arr[0];
+    int smallest = arr[0], secondSmallest = arr[0];
+    int i;
+
+    // sorting the array in descending order
+    for (i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (arr[i] < arr[j]) {
+                temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+
+    // finding the second largest and smallest elements
+    for (i = 0; i < n; i++) {
+        if (arr[i] > largest) {
+            secondLargest = largest;
+largest = arr[i];
+        }
+        else if (arr[i] > secondLargest && arr[i] != largest) {
+            secondLargest = arr[i];
+        }
+
+        if (arr[i] < smallest) {
+            secondSmallest = smallest;
+            smallest = arr[i];
+        }
+        else if (arr[i] < secondSmallest && arr[i] != smallest) {
+            secondSmallest = arr[i];
+        }
+    }
+
+    // calculating the average
+    sum = secondLargest + secondSmallest;
+    avg = sum / 2;
+
+    // checking if the average number is present in the array
+    for (i = 0; i < n; i++) {
+        if (arr[i] == avg) {
+printf("The average of the second largest and smallest elements (%d and %d) is present in the array at index %d.\n", secondLargest, secondSmallest, i);
+            break;
+        }
+    }
+
+    if (i == n) {
+        printf("The average of the second largest and smallest elements (%d and %d) is not present in the array.\n", secondLargest, secondSmallest);
+    }
+
+    return 0;
+}
